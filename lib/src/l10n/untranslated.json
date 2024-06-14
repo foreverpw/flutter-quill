@@ -1,5 +1,17 @@
 {
+  "ar": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
   "bg": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -7,15 +19,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "bn": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -23,31 +43,33 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "cs": [
-    "normal",
-    "heading1",
-    "heading2",
-    "heading3",
-    "heading4",
-    "heading5",
-    "heading6",
-    "pickAPhotoFromYourGallery",
-    "takeAPhotoUsingYourCamera",
-    "pasteAPhotoUsingALink",
-    "pickAVideoFromYourGallery",
-    "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "alignJustify",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "da": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -55,15 +77,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "de": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -71,15 +101,18 @@
     "heading4",
     "heading5",
     "heading6",
-    "pickAPhotoFromYourGallery",
-    "takeAPhotoUsingYourCamera",
-    "pasteAPhotoUsingALink",
-    "pickAVideoFromYourGallery",
-    "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "en_US": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -87,15 +120,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "es": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -103,15 +144,18 @@
     "heading4",
     "heading5",
     "heading6",
-    "pickAPhotoFromYourGallery",
-    "takeAPhotoUsingYourCamera",
-    "pasteAPhotoUsingALink",
-    "pickAVideoFromYourGallery",
-    "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "fa": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -119,31 +163,34 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "fr": [
-    "normal",
-    "heading1",
-    "heading2",
-    "heading3",
-    "heading4",
-    "heading5",
-    "heading6",
-    "pickAPhotoFromYourGallery",
-    "takeAPhotoUsingYourCamera",
-    "pasteAPhotoUsingALink",
-    "pickAVideoFromYourGallery",
-    "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "he": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -151,15 +198,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "hi": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -167,15 +222,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "id": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -183,15 +246,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "it": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -199,15 +270,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "ja": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -215,31 +294,49 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "ko": [
-    "normal",
-    "heading1",
-    "heading2",
-    "heading3",
-    "heading4",
-    "heading5",
-    "heading6",
-    "pickAPhotoFromYourGallery",
-    "takeAPhotoUsingYourCamera",
-    "pasteAPhotoUsingALink",
-    "pickAVideoFromYourGallery",
-    "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "alignJustify"
+  ],
+
+  "ku": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "ku_CKB": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "ms": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -247,15 +344,33 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "ne": [
+    "alignJustify",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "nl": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -263,15 +378,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "no": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -279,15 +402,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "pl": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -295,15 +426,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "pt": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -311,15 +450,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "pt_BR": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -327,15 +474,45 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "ro": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "ro_RO": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "ru": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -343,10 +520,28 @@
     "heading4",
     "heading5",
     "heading6",
-    "pasteAVideoUsingALink"
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "sk": [
+    "alignJustify",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "sr": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -354,15 +549,34 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "sv": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "sw": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -370,15 +584,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "tk": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -386,15 +608,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "tr": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -402,15 +632,34 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "uk": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "ur": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -418,15 +667,23 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "vi": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -434,15 +691,45 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "zh": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
+  ],
+
+  "zh_CN": [
+    "alignJustify",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ],
 
   "zh_HK": [
+    "alignJustify",
     "normal",
     "heading1",
     "heading2",
@@ -450,11 +737,18 @@
     "heading4",
     "heading5",
     "heading6",
+    "theImageHasBeenSavedAt",
+    "caseSensitive",
+    "wholeWord",
     "pickAPhotoFromYourGallery",
     "takeAPhotoUsingYourCamera",
     "pasteAPhotoUsingALink",
     "pickAVideoFromYourGallery",
     "recordAVideoUsingYourCamera",
-    "pasteAVideoUsingALink"
+    "pasteAVideoUsingALink",
+    "close",
+    "searchSettings",
+    "cut",
+    "paste"
   ]
 }

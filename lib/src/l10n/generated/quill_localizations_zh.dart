@@ -128,6 +128,9 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get alignRight => '右对齐';
 
   @override
+  String get alignJustify => 'Align justify';
+
+  @override
   String get justifyWinWidth => '两端对齐';
 
   @override
@@ -221,6 +224,11 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get savedUsingLocalStorage => '使用本地存储保存';
 
   @override
+  String theImageHasBeenSavedAt(String imagePath) {
+    return 'The image has been saved at: $imagePath';
+  }
+
+  @override
   String get errorWhileSavingImage => '保存图像时发生错误';
 
   @override
@@ -245,6 +253,12 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get caseSensitivityAndWholeWordSearch => '区分大小写和整词搜索';
 
   @override
+  String get caseSensitive => 'Case sensitive';
+
+  @override
+  String get wholeWord => 'Whole word';
+
+  @override
   String get insertImage => '插入图像';
 
   @override
@@ -264,6 +278,18 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
 
   @override
   String get pasteAVideoUsingALink => '从链接获取视频';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get searchSettings => 'Search settings';
+
+  @override
+  String get cut => 'Cut';
+
+  @override
+  String get paste => 'Paste';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).

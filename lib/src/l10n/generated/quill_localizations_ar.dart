@@ -128,6 +128,9 @@ class FlutterQuillLocalizationsAr extends FlutterQuillLocalizations {
   String get alignRight => 'محاذاة اليمين';
 
   @override
+  String get alignJustify => 'Align justify';
+
+  @override
   String get justifyWinWidth => 'تبرير مع العرض';
 
   @override
@@ -221,6 +224,11 @@ class FlutterQuillLocalizationsAr extends FlutterQuillLocalizations {
   String get savedUsingLocalStorage => 'تم الحفظ باستخدام وحدة التخزين المحلية';
 
   @override
+  String theImageHasBeenSavedAt(String imagePath) {
+    return 'The image has been saved at: $imagePath';
+  }
+
+  @override
   String get errorWhileSavingImage => 'حدث خطأ أثناء حفظ الصورة';
 
   @override
@@ -246,6 +254,12 @@ class FlutterQuillLocalizationsAr extends FlutterQuillLocalizations {
       'حالة الحساسية والبحث عن كلمة كاملة';
 
   @override
+  String get caseSensitive => 'Case sensitive';
+
+  @override
+  String get wholeWord => 'Whole word';
+
+  @override
   String get insertImage => 'إدراج صورة';
 
   @override
@@ -265,4 +279,16 @@ class FlutterQuillLocalizationsAr extends FlutterQuillLocalizations {
 
   @override
   String get pasteAVideoUsingALink => 'لصق فيديو باستخدام رابط';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get searchSettings => 'Search settings';
+
+  @override
+  String get cut => 'Cut';
+
+  @override
+  String get paste => 'Paste';
 }

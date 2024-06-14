@@ -128,6 +128,9 @@ class FlutterQuillLocalizationsMs extends FlutterQuillLocalizations {
   String get alignRight => 'Align right';
 
   @override
+  String get alignJustify => 'Align justify';
+
+  @override
   String get justifyWinWidth => 'Justify win width';
 
   @override
@@ -221,6 +224,11 @@ class FlutterQuillLocalizationsMs extends FlutterQuillLocalizations {
   String get savedUsingLocalStorage => 'Saved using the local storage';
 
   @override
+  String theImageHasBeenSavedAt(String imagePath) {
+    return 'The image has been saved at: $imagePath';
+  }
+
+  @override
   String get errorWhileSavingImage => 'Error while saving image';
 
   @override
@@ -248,6 +256,12 @@ class FlutterQuillLocalizationsMs extends FlutterQuillLocalizations {
       'Sensitiviti huruf besar dan kecil dan carian penuh perkataan';
 
   @override
+  String get caseSensitive => 'Case sensitive';
+
+  @override
+  String get wholeWord => 'Whole word';
+
+  @override
   String get insertImage => 'Masukkan imej';
 
   @override
@@ -267,4 +281,16 @@ class FlutterQuillLocalizationsMs extends FlutterQuillLocalizations {
 
   @override
   String get pasteAVideoUsingALink => 'Paste a video using a link';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get searchSettings => 'Search settings';
+
+  @override
+  String get cut => 'Cut';
+
+  @override
+  String get paste => 'Paste';
 }

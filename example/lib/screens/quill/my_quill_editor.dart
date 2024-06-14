@@ -54,11 +54,9 @@ class MyQuillEditor extends StatelessWidget {
           ),
           sizeSmall: TextStyle(fontSize: 9),
           subscript: TextStyle(
-            fontFamily: 'SF-UI-Display',
             fontFeatures: [FontFeature.subscripts()],
           ),
           superscript: TextStyle(
-            fontFamily: 'SF-UI-Display',
             fontFeatures: [FontFeature.superscripts()],
           ),
         ),
@@ -70,7 +68,8 @@ class MyQuillEditor extends StatelessWidget {
             return null;
           }
           // We will save it to system temporary files
-          final newFileName = '${DateTime.now().toIso8601String()}.png';
+          final newFileName =
+              'imageFile-${DateTime.now().toIso8601String()}.png';
           final newPath = path.join(
             io.Directory.systemTemp.path,
             newFileName,
@@ -78,6 +77,21 @@ class MyQuillEditor extends StatelessWidget {
           final file = await io.File(
             newPath,
           ).writeAsBytes(imageBytes, flush: true);
+          return file.path;
+        },
+        onGifPaste: (gifBytes) async {
+          if (isWeb()) {
+            return null;
+          }
+          // We will save it to system temporary files
+          final newFileName = 'gifFile-${DateTime.now().toIso8601String()}.gif';
+          final newPath = path.join(
+            io.Directory.systemTemp.path,
+            newFileName,
+          );
+          final file = await io.File(
+            newPath,
+          ).writeAsBytes(gifBytes, flush: true);
           return file.path;
         },
         embedBuilders: [

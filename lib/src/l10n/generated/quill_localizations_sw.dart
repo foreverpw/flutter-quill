@@ -128,6 +128,9 @@ class FlutterQuillLocalizationsSw extends FlutterQuillLocalizations {
   String get alignRight => 'Pangilia Kulia';
 
   @override
+  String get alignJustify => 'Align justify';
+
+  @override
   String get justifyWinWidth => 'Kuhalalisha Upana wa Ushindi';
 
   @override
@@ -221,6 +224,11 @@ class FlutterQuillLocalizationsSw extends FlutterQuillLocalizations {
   String get savedUsingLocalStorage => 'Imehifadhiwa kwa Hifadhi ya Ndani';
 
   @override
+  String theImageHasBeenSavedAt(String imagePath) {
+    return 'The image has been saved at: $imagePath';
+  }
+
+  @override
   String get errorWhileSavingImage => 'Hitilafu Wakati wa Kuhifadhi Picha';
 
   @override
@@ -247,6 +255,12 @@ class FlutterQuillLocalizationsSw extends FlutterQuillLocalizations {
       'Uwiano wa herufi kubwa na ndogo na utafutaji wa neno zima';
 
   @override
+  String get caseSensitive => 'Case sensitive';
+
+  @override
+  String get wholeWord => 'Whole word';
+
+  @override
   String get insertImage => 'Weka Picha';
 
   @override
@@ -266,4 +280,16 @@ class FlutterQuillLocalizationsSw extends FlutterQuillLocalizations {
 
   @override
   String get pasteAVideoUsingALink => 'Paste a video using a link';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get searchSettings => 'Search settings';
+
+  @override
+  String get cut => 'Cut';
+
+  @override
+  String get paste => 'Paste';
 }

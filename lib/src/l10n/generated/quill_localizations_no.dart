@@ -128,6 +128,9 @@ class FlutterQuillLocalizationsNo extends FlutterQuillLocalizations {
   String get alignRight => 'Høyrejuster';
 
   @override
+  String get alignJustify => 'Align justify';
+
+  @override
   String get justifyWinWidth => 'Rettferdiggjør bredden';
 
   @override
@@ -221,6 +224,11 @@ class FlutterQuillLocalizationsNo extends FlutterQuillLocalizations {
   String get savedUsingLocalStorage => 'Lagret ved hjelp av lokal lagring';
 
   @override
+  String theImageHasBeenSavedAt(String imagePath) {
+    return 'The image has been saved at: $imagePath';
+  }
+
+  @override
   String get errorWhileSavingImage => 'Feil ved lagring av bilde';
 
   @override
@@ -250,6 +258,12 @@ class FlutterQuillLocalizationsNo extends FlutterQuillLocalizations {
       'Stor/liten bokstavfølsomhet og helordsøk';
 
   @override
+  String get caseSensitive => 'Case sensitive';
+
+  @override
+  String get wholeWord => 'Whole word';
+
+  @override
   String get insertImage => 'Sett inn bilde';
 
   @override
@@ -269,4 +283,16 @@ class FlutterQuillLocalizationsNo extends FlutterQuillLocalizations {
 
   @override
   String get pasteAVideoUsingALink => 'Paste a video using a link';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get searchSettings => 'Search settings';
+
+  @override
+  String get cut => 'Cut';
+
+  @override
+  String get paste => 'Paste';
 }
