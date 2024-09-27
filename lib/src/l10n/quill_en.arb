@@ -71,6 +71,7 @@
   "hex": "Hex",
   "material": "Material",
   "color": "Color",
+  "lineheight": "Line height",
   "findText": "Find text",
   "moveToPreviousOccurrence": "Move to previous occurrence",
   "moveToNextOccurrence": "Move to next occurrence",
@@ -106,5 +107,6 @@
   "close": "Close",
   "searchSettings": "Search settings",
   "cut": "Cut",
-  "paste": "Paste"
+  "paste": "Paste",
+  "insertTable": "Insert table"
 }

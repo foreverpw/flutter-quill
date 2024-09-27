@@ -1,22 +1,17 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert' show jsonDecode, jsonEncode;
+import 'dart:convert' show JsonEncoder, jsonDecode;
 import 'dart:io' show File, exit;
 
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 import 'package:yaml_edit/yaml_edit.dart' show YamlEditor;
 
+import 'packages.dart';
+
 /// The list of the packages that which will be used to update the `CHANGELOG.md`
 /// and the version in the `pubspec.yaml` for all the packages
-final _packages = [
-  './',
-  './dart_quill_delta',
-  './flutter_quill_extensions',
-  './flutter_quill_test',
-  './quill_html_converter',
-  './quill_pdf_converter',
-];
+const _packagesToUpdate = repoPackages;
 
 const _usage = 'Usage: ./script <version>';
 const _versionContentFileName = 'versionContent.md';
@@ -87,7 +82,7 @@ Future<void> main(List<String> args) async {
       ..write('$versionContent\n\n');
   });
 
-  for (final packagePath in _packages) {
+  for (final packagePath in _packagesToUpdate) {
     await _updatePubspecYamlFile(
       pubspecYamlPath: '$packagePath/pubspec.yaml',
       newVersion: passedVersion,
@@ -121,7 +116,12 @@ Future<void> _replaceVersion({
       ..clear()
       ..addAll(newMap);
   }
-  await sourceChangeLogFile.writeAsString(jsonEncode(sourceChangeLog));
+
+  // Create a JsonEncoder with 4 spaces of indentation
+  final spaces = ' ' * 4;
+  final encoder = JsonEncoder.withIndent(spaces);
+
+  await sourceChangeLogFile.writeAsString(encoder.convert(sourceChangeLog));
 }
 
 /// Update the [pubspecYamlPath] file to update the `version` property from [newVersion]

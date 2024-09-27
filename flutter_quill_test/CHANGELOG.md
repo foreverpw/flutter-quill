@@ -4,6 +4,944 @@
 
 All notable changes to this project will be documented in this file.
 
+## 10.8.0
+
+> [!CAUTION]
+> This release can be breaking change for `flutter_quill_extensions` users as it remove the built-in support for loading YouTube videos
+
+If you're using [flutter_quill_extensions](https://pub.dev/packages/flutter_quill_extensions) then this release, can be a breaking change for you if you load videos in the editor and expect YouTube videos to be supported, [youtube_player_flutter](https://pub.dev/packages/youtube_player_flutter) and [flutter_inappwebview](https://pub.dev/packages/flutter_inappwebview) are no longer dependencies of the extensions package, which are used to support loading YouTube Iframe videos on non-web platforms, more details about the discussion and reasons in [#2286](https://github.com/singerdmx/flutter-quill/pull/2286) and [#2284](https://github.com/singerdmx/flutter-quill/issues/2284).
+
+We have added an experimental property that gives you more flexibility and control about the implementation you want to use for loading videos.
+
+> [!WARNING]
+> It's likely to experience some common issues while implementing this feature, especially on desktop platforms as the support for [flutter_inappwebview_windows](https://pub.dev/packages/flutter_inappwebview_windows) and [flutter_inappwebview_macos](https://pub.dev/packages/flutter_inappwebview_macos) before 2 days. Some of the issues are in the Flutter Quill editor.
+
+If you want loading YouTube videos to be a feature again with the latest version of Flutter Quill, you can use an existing plugin or package, or implement your own solution. For example, you might use [`youtube_video_player`](https://pub.dev/packages/youtube_video_player) or [`youtube_player_flutter`](https://pub.dev/packages/youtube_player_flutter), which was previously used in [`flutter_quill_extensions`](https://pub.dev/packages/flutter_quill_extensions).
+
+Here’s an example setup using `youtube_player_flutter`:
+
+```shell
+flutter pub add youtube_player_flutter
+```
+
+Example widget configuration:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+class YoutubeVideoPlayer extends StatefulWidget {
+  const YoutubeVideoPlayer({required this.videoUrl, super.key});
+
+  final String videoUrl;
+
+  @override
+  State<YoutubeVideoPlayer> createState() => _YoutubeVideoPlayerState();
+}
+
+class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
+  late final YoutubePlayerController _youtubePlayerController;
+  @override
+  void initState() {
+    super.initState();
+    _youtubePlayerController = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(widget.videoUrl) ??
+          (throw StateError('Expect a valid video URL')),
+      flags: const YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return YoutubePlayer(
+      controller: _youtubePlayerController,
+      showVideoProgressIndicator: true,
+    );
+  }
+
+  @override
+  void dispose() {
+    _youtubePlayerController.dispose();
+    super.dispose();
+  }
+}
+
+```
+
+Then, integrate it with `QuillEditorVideoEmbedConfigurations`
+
+```dart
+FlutterQuillEmbeds.editorBuilders(
+      videoEmbedConfigurations: QuillEditorVideoEmbedConfigurations(
+        customVideoBuilder: (videoUrl, readOnly) {
+          // Example: Check for YouTube Video URL and return your
+          // YouTube video widget here.
+          bool isYouTubeUrl(String videoUrl) {
+            try {
+              final uri = Uri.parse(videoUrl);
+              return uri.host == 'www.youtube.com' ||
+                  uri.host == 'youtube.com' ||
+                  uri.host == 'youtu.be' ||
+                  uri.host == 'www.youtu.be';
+            } catch (_) {
+              return false;
+            }
+          }
+
+          if (isYouTubeUrl(videoUrl)) {
+            return YoutubeVideoPlayer(
+              videoUrl: videoUrl,
+            );
+          }
+
+          // Return null to fallback to the default logic
+          return null;
+        },
+        ignoreYouTubeSupport: true,
+      ),
+);
+```
+
+> [!NOTE]
+> This example illustrates a basic approach, additional adjustments might be necessary to meet your specific needs. YouTube video support is no longer included in this project. Keep in mind that `customVideoBuilder` is experimental and can change without being considered as breaking change. More details in [breaking changes](https://github.com/singerdmx/flutter-quill#-breaking-changes) section.
+
+[`super_clipboard`](https://pub.dev/packages/super_clipboard) will also no longer a dependency of `flutter_quill_extensions` once [PR #2230](https://github.com/singerdmx/flutter-quill/pull/2230) is ready.
+
+We're looking forward to your feedback.
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.7...v10.8.0
+
+## 10.7.7
+
+This version is nearly identical to `10.7.6` with a build failure bug fix in [#2283](https://github.com/singerdmx/flutter-quill/pull/2283) related to unmerged change in [#2230](https://github.com/singerdmx/flutter-quill/pull/2230)
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.6...v10.7.7
+
+## 10.7.6
+
+* Code Comments Typo fixes by @Luismi74 in https://github.com/singerdmx/flutter-quill/pull/2267
+* docs: add important note for contributors before introducing new features by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2269
+* docs(readme): add 'Breaking Changes' section by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2275
+* Fix: Resolved issue with broken IME composing rect in Windows desktop(re-implementation) by @agata in https://github.com/singerdmx/flutter-quill/pull/2282
+
+## New Contributors
+* @Luismi74 made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2267
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.5...v10.7.6
+
+## 10.7.5
+
+* fix(ci): add flutter pub get step for quill_native_bridge by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2265
+* revert: "Resolved issue with broken IME composing rect in Windows desktop" by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2266
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.4...v10.7.5
+
+## 10.7.4
+
+* chore: remove pubspec_overrides.yaml and pubspec_overrides.yaml.disabled by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2262
+* ci: remove quill_native_bridge from automated publishing workflow by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2263
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.3...v10.7.4
+
+## 10.7.3
+
+- Deprecate `FlutterQuillExtensions` in `flutter_quill_extensions`
+- Update the minimum version of `flutter_quill` and `super_clipboard` in `flutter_quill_extensions` to avoid using deprecated code.
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.2...v10.7.3
+
+## 10.7.2
+
+## What's Changed
+* chore: deprecate flutter_quill/extensions.dart by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2258
+
+This is a minor release introduced to upload a new version of `flutter_quill` and `flutter_quill_extensions` to update the minimum required to avoid using deprecated code in `flutter_quill_extensions`.
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.1...v10.7.2
+
+## 10.7.1
+
+* chore: deprecate markdown_quill export, ignore warnings by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2256
+* chore: deprecate spell checker service by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2255
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.7.0...v10.7.1
+
+## 10.7.0
+
+* Chore: deprecate embed table feature by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2254
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.6.6...v10.7.0
+
+## 10.6.6
+
+* Bug fix: Removing check not allowing spell check on web by @joeserhtf in https://github.com/singerdmx/flutter-quill/pull/2252
+
+## New Contributors
+* @joeserhtf made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2252
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.6.5...v10.6.6
+
+## 10.6.5
+
+* Refine IME composing range styling by applying underline as text style by @agata in https://github.com/singerdmx/flutter-quill/pull/2244
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.6.4...v10.6.5
+
+## 10.6.4
+
+* fix: the composing text did not show an underline during IME conversion by @agata in https://github.com/singerdmx/flutter-quill/pull/2242
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.6.3...v10.6.4
+
+## 10.6.3
+
+* Fix: Resolved issue with broken IME composing rect in Windows desktop by @agata in https://github.com/singerdmx/flutter-quill/pull/2239
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.6.2...v10.6.3
+
+## 10.6.2
+
+* Fix: QuillToolbarToggleStyleButton Switching failure by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2234
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.6.1...v10.6.2
+
+## 10.6.1
+
+* Chore: update `flutter_quill_delta_from_html` to remove exception calls by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2232
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.6.0...v10.6.1
+
+## 10.6.0
+
+* docs: cleanup the docs, remove outdated resources, general changes by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2227
+* Feat: customizable character and space shortcut events by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2228
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.19...v10.6.0
+
+## 10.5.19
+
+* fix: properties other than 'style' for custom inline code styles (such as 'backgroundColor') were not being applied correctly by @agata in https://github.com/singerdmx/flutter-quill/pull/2226
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.18...v10.5.19
+
+## 10.5.18
+
+* feat(web): rich text paste from Clipboard using HTML by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2009
+* revert: disable rich text paste feature on web as a workaround by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2221
+* refactor: moved shortcuts and onKeyEvents to its own file by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2223
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.17...v10.5.18
+
+## 10.5.17
+
+* feat(l10n): localize all untranslated.json by @erdnx in https://github.com/singerdmx/flutter-quill/pull/2217
+* Fix: Block Attributes are not displayed if the editor is empty by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2210
+
+## New Contributors
+* @erdnx made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2217
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.16...v10.5.17
+
+## 10.5.16
+
+* chore: remove device_info_plus and add quill_native_bridge to access platform specific APIs by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2194
+* Not show/update/hiden mangnifier when manifier config is disbale by @demoYang in https://github.com/singerdmx/flutter-quill/pull/2212
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.14...v10.5.16
+
+## 10.5.15-dev.0
+
+Introduce `quill_native_bridge` which is an internal plugin to use by `flutter_quill` to access platform APIs.
+
+For now, the only functionality it supports is to check whatever the iOS app is running on iOS simulator without requiring [`device_info_plus`](pub.dev/packages/device_info_plus) as a dependency.
+
+> [!NOTE]
+> `quill_native_bridge` is a plugin for internal use and should not be used in production applications
+> as breaking changes can happen and can removed at any time.
+
+For more details and discussion see [#2194](https://github.com/singerdmx/flutter-quill/pull/2194).
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.14...v10.5.15-dev.0
+
+## 10.5.14
+
+* chore(localization): add Greek language support by @DKalathas in https://github.com/singerdmx/flutter-quill/pull/2206
+
+## New Contributors
+* @DKalathas made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2206
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.13...v10.5.14
+
+## 10.5.13
+
+* Revert "Fix: Allow backspace at start of document to remove block style and header style by @agata in https://github.com/singerdmx/flutter-quill/pull/2201
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.12...v10.5.13
+
+## 10.5.12
+
+* Fix: Backspace remove block attributes at start by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2200
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.11...v10.5.12
+
+## 10.5.11
+
+* Enhancement: Backspace handling at the start of blocks in delete rules by @agata in https://github.com/singerdmx/flutter-quill/pull/2199
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.10...v10.5.11
+
+## 10.5.10
+
+* Allow backspace at start of document to remove block style and header style by @agata in https://github.com/singerdmx/flutter-quill/pull/2198
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.9...v10.5.10
+
+## 10.5.9
+
+* chore: improve platform check by using constants and defaultTargetPlatform by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2188
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.8...v10.5.9
+
+## 10.5.8
+
+* Feat: Add configuration option to always indent on TAB key press by @agata in https://github.com/singerdmx/flutter-quill/pull/2187
+
+## New Contributors
+* @agata made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2187
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.7...v10.5.8
+
+## 10.5.7
+
+* chore(example): downgrade Kotlin from 1.9.24 to 1.7.10 by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2185
+* style: refactor build leading function style, width, and padding parameters for custom node leading builder by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2182
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.6...v10.5.7
+
+## 10.5.6
+
+* chore(deps): update super_clipboard to 0.8.20 in flutter_quill_extensions by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2181
+* Update quill_screen.dart, i chaged the logic for showing a lock when … by @rightpossible in https://github.com/singerdmx/flutter-quill/pull/2183
+
+## New Contributors
+* @rightpossible made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2183
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.5...v10.5.6
+
+## 10.5.5
+
+* Fix text selection handles when scroll mobile by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2176
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.4...v10.5.5
+
+## 10.5.4
+
+* Add Thai (th) localization by @silkyland in https://github.com/singerdmx/flutter-quill/pull/2175
+
+## New Contributors
+* @silkyland made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2175
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.3...v10.5.4
+
+## 10.5.3
+
+* Fix: Assertion Failure in line.dart When Editing Text with Block-Level Attributes by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2174
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.2...v10.5.3
+
+## 10.5.2
+
+* fix(toolbar): regard showDividers in simple toolbar by @realth000 in https://github.com/singerdmx/flutter-quill/pull/2172
+
+## New Contributors
+* @realth000 made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2172
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.1...v10.5.2
+
+## 10.5.1
+
+* fix drag selection extension (does not start at tap location if you are dragging quickly by @jezell in https://github.com/singerdmx/flutter-quill/pull/2170
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.5.0...v10.5.1
+
+## 10.5.0
+
+* Feat: custom leading builder by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2146
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.9...v10.5.0
+
+## 10.4.9
+
+* fix floating cursor not disappearing after scroll end by @vishna in https://github.com/singerdmx/flutter-quill/pull/2163
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.8...v10.4.9
+
+## 10.4.8
+
+* Fix: direction has no opposite effect if the language is rtl by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2154
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.7...v10.4.8
+
+## 10.4.7
+
+* Fix: Unable to scroll 2nd editor window by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2152
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.6...v10.4.7
+
+## 10.4.6
+
+* Handle null child query by @jezell in https://github.com/singerdmx/flutter-quill/pull/2151
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.5...v10.4.6
+
+## 10.4.5
+
+* chore!: move spell checker to example by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2145
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.4...v10.4.5
+
+## 10.4.4
+
+* fix custom recognizer builder not being passed to editabletextblock by @jezell in https://github.com/singerdmx/flutter-quill/pull/2143
+* fix null reference exception when dragging selection on non scrollable selection by @jezell in https://github.com/singerdmx/flutter-quill/pull/2144
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.3...v10.4.4
+
+## 10.4.3
+
+* Chore: update simple_spell_checker package by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2139
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.2...v10.4.3
+
+## 10.4.2
+
+* Revert "fix: Double click to select text sometimes doesn't work. ([#2086](https://github.com/singerdmx/flutter-quill/pull/2086))
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.1...v10.4.2
+
+## 10.4.1
+
+* Chore: improve Spell checker API to the example by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2133
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.4.0...v10.4.1
+
+## 10.4.0
+
+* Copy TapAndPanGestureRecognizer from TextField by @demoYang in https://github.com/singerdmx/flutter-quill/pull/2128
+* enhance stringToColor with a custom defined palette from `DefaultStyles` by @vishna in https://github.com/singerdmx/flutter-quill/pull/2095
+* Feat: include spell checker for example app by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2127
+
+## New Contributors
+* @vishna made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2095
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.3.3...v10.4.0
+
+## 10.3.2
+
+* Fix: Loss of style when backspace by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2125
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.3.1...v10.3.2
+
+## 10.3.1
+
+* Chore: Move spellchecker service to extensions by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2120
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.3.0...v10.3.1
+
+## 10.3.0
+
+* Feat: Spellchecker for Flutter Quill by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2118
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.2.1...v10.3.0
+
+## 10.2.1
+
+* Fix: context menu is visible even when selection is collapsed by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2116
+* Fix: unsafe operation while getting overlayEntry in text_selection by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2117
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.2.0...v10.2.1
+
+## 10.2.0
+
+* refactor!: restructure project into modular architecture for flutter_quill_extensions by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2106
+* Fix: Link selection and editing by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2114
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.10...v10.2.0
+
+## 10.1.10
+
+* Fix(example): image_cropper outdated version by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2100
+* Using dart.library.js_interop instead of dart.library.html by @h1376h in https://github.com/singerdmx/flutter-quill/pull/2103
+
+## New Contributors
+* @h1376h made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2103
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.9...v10.1.10
+
+## 10.1.9
+
+* restore ability to pass in key to QuillEditor by @mtallenca in https://github.com/singerdmx/flutter-quill/pull/2093
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.8...v10.1.9
+
+## 10.1.8
+
+* Enhancement: Search within Embed objects by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2090
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.7...v10.1.8
+
+## 10.1.7
+
+* Feature/allow shortcut override by @InstrinsicAutomations in https://github.com/singerdmx/flutter-quill/pull/2089
+
+## New Contributors
+* @InstrinsicAutomations made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2089
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.6...v10.1.7
+
+## 10.1.6
+
+* fixed #1295 Double click to select text sometimes doesn't work. by @li8607 in https://github.com/singerdmx/flutter-quill/pull/2086
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.5...v10.1.6
+
+## 10.1.5
+
+* ref: add `VerticalSpacing.zero` and `HorizontalSpacing.zero` named constants by @adil192 in https://github.com/singerdmx/flutter-quill/pull/2083
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.4...v10.1.5
+
+## 10.1.4
+
+* Fix: collectStyles for lists and alignments by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2082
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.3...v10.1.4
+
+## 10.1.3
+
+* Move Controller outside of configurations data class by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2078
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.2...v10.1.3
+
+## 10.1.2
+
+* Fix Multiline paste with attributes and embeds by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2074
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.1...v10.1.2
+
+## 10.1.1
+
+* Toolbar dividers fixes + Docs updates by @troyanskiy in https://github.com/singerdmx/flutter-quill/pull/2071
+
+## New Contributors
+* @troyanskiy made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2071
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.1.0...v10.1.1
+
+## 10.1.0
+
+* Feat: support for customize copy and cut Embeddables to Clipboard by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2067
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.10...v10.1.0
+
+## 10.0.10
+
+* fix: Hide selection toolbar if editor loses focus by @huandu in https://github.com/singerdmx/flutter-quill/pull/2066
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.9...v10.0.10
+
+## 10.0.9
+
+* Fix: manual checking of directionality by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2063
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.8...v10.0.9
+
+## 10.0.8
+
+* feat: add callback to handle performAction by @huandu in https://github.com/singerdmx/flutter-quill/pull/2061
+* fix: Invalid selection when tapping placeholder text by @huandu in https://github.com/singerdmx/flutter-quill/pull/2062
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.7...v10.0.8
+
+## 10.0.7
+
+* Fix: RTL issues by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2060
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.6...v10.0.7
+
+## 10.0.6
+
+* fix: textInputAction is not set when creating QuillRawEditorConfiguration by @huandu in https://github.com/singerdmx/flutter-quill/pull/2057
+
+## New Contributors
+* @huandu made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2057
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.5...v10.0.6
+
+## 10.0.5
+
+* Add tests for PreserveInlineStylesRule and fix link editing. Other minor fixes. by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2058
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.4...v10.0.5
+
+## 10.0.4
+
+* Add ability to set up horizontal spacing for block style by @dimkanovikov in https://github.com/singerdmx/flutter-quill/pull/2051
+* add catalan language by @spilioio in https://github.com/singerdmx/flutter-quill/pull/2054
+
+## New Contributors
+* @dimkanovikov made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2051
+* @spilioio made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2054
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.3...v10.0.4
+
+## 10.0.3
+
+* doc(Delta): more documentation about Delta by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2042
+* doc(attribute): added documentation about Attribute class and how create one by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2048
+* if magnifier removes toolbar, restore it when it is hidden by @mtallenca in https://github.com/singerdmx/flutter-quill/pull/2049
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.2...v10.0.3
+
+## 10.0.2
+
+* chore(scripts): migrate the scripts from sh to dart by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2036
+* Have the ability to create custom rules, closes #1162 by @Guillergood in https://github.com/singerdmx/flutter-quill/pull/2040
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.1...v10.0.2
+
+## 10.0.1
+
+This release is identical to [10.0.0](https://github.com/singerdmx/flutter-quill/releases/tag/v10.0.0) with a fix that addresses issue #2034 by requiring `10.0.0` as the minimum version for quill related dependencies.
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v10.0.0...v10.0.1
+
+## 10.0.0
+
+* refactor: restructure project into modular architecture for flutter_quill by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2032
+* chore: update GitHub PR template by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2033
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.6.0...v10.0.0
+
+## 9.6.0
+
+* [feature] : quill add magnifier by @demoYang in https://github.com/singerdmx/flutter-quill/pull/2026
+
+## New Contributors
+* @demoYang made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2026
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.23...v9.6.0
+
+## 9.5.23
+
+* add untranslated Kurdish keys by @Xoshbin in https://github.com/singerdmx/flutter-quill/pull/2029
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.22...v9.5.23
+
+## 9.5.22
+
+* Fix outdated contributor guide link on PR template by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2027
+* Fix(rule): PreserveInlineStyleRule assume the type of the operation data and throw stacktrace by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2028
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.21...v9.5.22
+
+## 9.5.21
+
+* Fix: Key actions not being handled by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/2025
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.20...v9.5.21
+
+## 9.5.20
+
+* Remove useless delta_x_test by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2017
+* Update flutter_quill_delta_from_html package on pubspec.yaml by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2018
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.19...v9.5.20
+
+## 9.5.19
+
+* fixed #1835 Embed Reloads on Cmd Key Press by @li8607 in https://github.com/singerdmx/flutter-quill/pull/2013
+
+## New Contributors
+* @li8607 made their first contribution in https://github.com/singerdmx/flutter-quill/pull/2013
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.18...v9.5.19
+
+## 9.5.18
+
+* Refactor: Moved core link button functions to link.dart by @Alspb in https://github.com/singerdmx/flutter-quill/pull/2008
+* doc: more documentation about Rules by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2014
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.17...v9.5.18
+
+## 9.5.17
+
+* Feat(config): added option to disable automatic list conversion by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2011
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.16...v9.5.17
+
+## 9.5.16
+
+* chore: drop support for HTML, PDF, and Markdown converting functions by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/1997
+* docs(readme): update the extensions package to document the Rich Text Paste feature on web by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/2001
+* Fix(test): delta_x tests fail by wrong expected Delta for video embed by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2010
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.15...v9.5.16
+
+## 9.5.15
+
+* Update delta_from_html to fix nested lists issues and more by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/2000
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.14...v9.5.15
+
+## 9.5.14
+
+* docs(readme): update 'Conversion to HTML' section to include more details by @EchoEllet in https://github.com/singerdmx/flutter-quill/pull/1996
+* Update flutter_quill_delta_from_html on pubspec.yaml to fix current issues by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1999
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.13...v9.5.14
+
+## 9.5.13
+
+* Added new default ConverterOptions configurations by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1990
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.12...v9.5.13
+
+## 9.5.12
+
+* fix: Fixed passing textStyle to formula embed by @shubham030 in https://github.com/singerdmx/flutter-quill/pull/1989
+
+## New Contributors
+* @shubham030 made their first contribution in https://github.com/singerdmx/flutter-quill/pull/1989
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.11...v9.5.12
+
+## 9.5.11
+
+* Update flutter_quill_delta_from_html in pubspec.yaml by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1988
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.10...v9.5.11
+
+## 9.5.10
+
+* chore: remove dependency html converter by @ellet0 in https://github.com/singerdmx/flutter-quill/pull/1987
+* Fix: LineHeight button to use MenuAnchor by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/1986
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.9...v9.5.10
+
+## 9.5.9
+
+* Update pubspec.yaml to remove html2md by @singerdmx in https://github.com/singerdmx/flutter-quill/pull/1985
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.8...v9.5.9
+
+## 9.5.8
+
+* fix(typo): fix typo ClipboardServiceProvider.instacne by @ellet0 in https://github.com/singerdmx/flutter-quill/pull/1983
+* Feat: New way to get Delta from HTML inputs by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1984
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.7...v9.5.8
+
+## 9.5.7
+
+* refactor: context menu function, add test code by @n7484443 in https://github.com/singerdmx/flutter-quill/pull/1979
+* Fix: PreserveInlineStylesRule by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/1980
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.6...v9.5.7
+
+## 9.5.6
+
+* fix: common link is detected as a video link by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1978
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.5...v9.5.6
+
+## 9.5.5
+
+* fix: context menu behavior in mouse, desktop env by @n7484443 in https://github.com/singerdmx/flutter-quill/pull/1976
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.4...v9.5.5
+
+## 9.5.4
+
+* Feat: Line height support by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1972
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.3...v9.5.4
+
+## 9.5.3
+
+* Perf: Performance optimization by @Alspb in https://github.com/singerdmx/flutter-quill/pull/1964
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.2...v9.5.3
+
+## 9.5.2
+
+* Fix style settings by @AtlasAutocode in https://github.com/singerdmx/flutter-quill/pull/1962
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.1...v9.5.2
+
+## 9.5.1
+
+* feat(extensions): Youtube Video Player Support Mode by @ellet0 in https://github.com/singerdmx/flutter-quill/pull/1916
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.5.0...v9.5.1
+
+## 9.5.0
+
+* Partial support for table embed by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1960
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.9...v9.5.0
+
+## 9.4.9
+
+* Upgrade photo_view to 0.15.0 for flutter_quill_extensions by @singerdmx in https://github.com/singerdmx/flutter-quill/pull/1958
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.8...v9.4.9
+
+## 9.4.8
+
+* Add support for html underline and videos  by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1955
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.7...v9.4.8
+
+## 9.4.7
+
+* fixed #1953 italic detection error by @CatHood0 in https://github.com/singerdmx/flutter-quill/pull/1954
+
+## New Contributors
+* @CatHood0 made their first contribution in https://github.com/singerdmx/flutter-quill/pull/1954
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.6...v9.4.7
+
+## 9.4.6
+
+* fix: search dialog throw an exception due to missing FlutterQuillLocalizations.delegate in the editor by @ellet0 in https://github.com/singerdmx/flutter-quill/pull/1938
+* fix(editor): implement editor shortcut action for home and end keys to fix exception about unimplemented ScrollToDocumentBoundaryIntent by @ellet0 in https://github.com/singerdmx/flutter-quill/pull/1937
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.5...v9.4.6
+
+## 9.4.5
+
+* fix: color picker hex unfocus on web by @geronimol in https://github.com/singerdmx/flutter-quill/pull/1934
+
+## New Contributors
+* @geronimol made their first contribution in https://github.com/singerdmx/flutter-quill/pull/1934
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.4...v9.4.5
+
+## 9.4.4
+
+* fix: Enabled link regex to be overridden by @JoepHeijnen in https://github.com/singerdmx/flutter-quill/pull/1931
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.3...v9.4.4
+
+## 9.4.3
+
+* Fix: setState() called after dispose(): QuillToolbarClipboardButtonState #1895 by @windows7lake in https://github.com/singerdmx/flutter-quill/pull/1926
+
+## New Contributors
+* @windows7lake made their first contribution in https://github.com/singerdmx/flutter-quill/pull/1926
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.2...v9.4.3
+
+## 9.4.2
+
+* Respect autofocus, closes #1923 by @Guillergood in https://github.com/singerdmx/flutter-quill/pull/1924
+
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.1...v9.4.2
+
+## 9.4.1
+
+* replace base64 regex string by @salba360496 in https://github.com/singerdmx/flutter-quill/pull/1919
+
+## New Contributors
+* @salba360496 made their first contribution in https://github.com/singerdmx/flutter-quill/pull/1919
+
+**Full Changelog**: https://github.com/singerdmx/flutter-quill/compare/v9.4.0...v9.4.1
+
 ## 9.4.0
 
 This release can be used without changing anything, although it can break the behavior a little, we provided a way to use the old behavior in `9.3.x`

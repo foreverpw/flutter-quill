@@ -3,12 +3,14 @@ import 'dart:io' as io show Directory, File;
 import 'package:cached_network_image/cached_network_image.dart'
     show CachedNetworkImageProvider;
 import 'package:desktop_drop/desktop_drop.dart' show DropTarget;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/extensions.dart' show isAndroid, isIOS, isWeb;
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill_extensions/embeds/widgets/image.dart'
-    show getImageProviderByImageSource, imageFileExtensions;
+import 'package:flutter_quill/flutter_quill_internal.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
+// ignore: implementation_imports
+import 'package:flutter_quill_extensions/src/editor/image/widgets/image.dart'
+    show getImageProviderByImageSource, imageFileExtensions;
 import 'package:path/path.dart' as path;
 
 import '../../extensions/scaffold_messenger.dart';
@@ -16,21 +18,25 @@ import 'embeds/timestamp_embed.dart';
 
 class MyQuillEditor extends StatelessWidget {
   const MyQuillEditor({
+    required this.controller,
     required this.configurations,
     required this.scrollController,
     required this.focusNode,
     super.key,
   });
 
+  final QuillController controller;
   final QuillEditorConfigurations configurations;
   final ScrollController scrollController;
   final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
+    final defaultTextStyle = DefaultTextStyle.of(context);
     return QuillEditor(
       scrollController: scrollController,
       focusNode: focusNode,
+      controller: controller,
       configurations: configurations.copyWith(
         elementOptions: const QuillEditorElementOptions(
           codeBlock: QuillEditorCodeBlockElementOptions(
@@ -41,30 +47,25 @@ class MyQuillEditor extends StatelessWidget {
             useTextColorForDot: true,
           ),
         ),
-        customStyles: const DefaultStyles(
+        customStyles: DefaultStyles(
           h1: DefaultTextBlockStyle(
-            TextStyle(
+            defaultTextStyle.style.copyWith(
               fontSize: 32,
               height: 1.15,
               fontWeight: FontWeight.w300,
             ),
-            VerticalSpacing(16, 0),
-            VerticalSpacing(0, 0),
+            HorizontalSpacing.zero,
+            const VerticalSpacing(16, 0),
+            VerticalSpacing.zero,
             null,
           ),
-          sizeSmall: TextStyle(fontSize: 9),
-          subscript: TextStyle(
-            fontFeatures: [FontFeature.subscripts()],
-          ),
-          superscript: TextStyle(
-            fontFeatures: [FontFeature.superscripts()],
-          ),
+          sizeSmall: defaultTextStyle.style.copyWith(fontSize: 9),
         ),
         scrollable: true,
-        placeholder: 'Start writting your notes...',
+        placeholder: 'Start writing your notes...',
         padding: const EdgeInsets.all(16),
         onImagePaste: (imageBytes) async {
-          if (isWeb()) {
+          if (kIsWeb) {
             return null;
           }
           // We will save it to system temporary files
@@ -80,7 +81,7 @@ class MyQuillEditor extends StatelessWidget {
           return file.path;
         },
         onGifPaste: (gifBytes) async {
-          if (isWeb()) {
+          if (kIsWeb) {
             return null;
           }
           // We will save it to system temporary files
@@ -95,7 +96,7 @@ class MyQuillEditor extends StatelessWidget {
           return file.path;
         },
         embedBuilders: [
-          ...(isWeb()
+          ...(kIsWeb
               ? FlutterQuillEmbeds.editorWebBuilders()
               : FlutterQuillEmbeds.editorBuilders(
                   imageEmbedConfigurations: QuillEditorImageEmbedConfigurations(
@@ -109,9 +110,7 @@ class MyQuillEditor extends StatelessWidget {
                       // only for Android, iOS and web
 
                       // We will use it only if image from network
-                      if (isAndroid(supportWeb: false) ||
-                          isIOS(supportWeb: false) ||
-                          isWeb()) {
+                      if (isAndroidApp || isIosApp || kIsWeb) {
                         if (isHttpBasedUrl(imageUrl)) {
                           return CachedNetworkImageProvider(
                             imageUrl,
@@ -128,12 +127,22 @@ class MyQuillEditor extends StatelessWidget {
                       );
                     },
                   ),
+                  videoEmbedConfigurations: QuillEditorVideoEmbedConfigurations(
+                    customVideoBuilder: (videoUrl, readOnly) {
+                      // Example: Check for YouTube Video URL and return your
+                      // YouTube video widget here.
+
+                      // Otherwise return null to fallback to the defualt logic
+                      return null;
+                    },
+                    ignoreYouTubeSupport: true,
+                  ),
                 )),
           TimeStampEmbedBuilderWidget(),
         ],
         builder: (context, rawEditor) {
           // The `desktop_drop` plugin doesn't support iOS platform for now
-          if (isIOS(supportWeb: false)) {
+          if (isIosApp) {
             return rawEditor;
           }
           return DropTarget(
